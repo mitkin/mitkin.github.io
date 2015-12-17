@@ -1,7 +1,5 @@
-https://github.com/mitkin/mitkin.github.io/edit/master/2015/12/17/hello_world.rst#Hello World!
+Hello World!
 ============
-https://github.com/mitkin/mitkin.github.io/edit/master/2015/12/17/hello_world.rst#
-
 
 .. author:: default
 .. categories:: none
