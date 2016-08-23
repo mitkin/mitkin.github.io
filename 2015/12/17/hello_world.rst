@@ -1,5 +1,5 @@
 Bayesian Methods for Hackers
-============
+============================
 
 .. author:: default
 .. categories:: none
