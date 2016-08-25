@@ -17,6 +17,7 @@ Recent projects directly related to my work:
 * Satistjenesten_, satellite processing package I use at the Norwegian Ice Service
 * Avhrr-sic-analysis_, Melt pond related uncertainty estimation in the passive microwave satellite records of sea ice concentration
 
+.. _PyTROLL: https://github.com/pytroll
 .. _Github: https://github.com/mitkin
 .. _MET: http://met.no
 .. _Satistjenesten: https://github.com/metno/satistjenesten
