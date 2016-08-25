@@ -22,7 +22,7 @@ description = 'Personal blog'
 author = 'Mikhail Itkin'
 
 # Change this to your copyright string
-copyright = '2015, ' + author
+copyright = '2015 - 2016 ' + author
 
 # Change this to your blog root URL (required for RSS feed)
 website = 'http://mitkin.github.io/'
@@ -32,7 +32,7 @@ website = 'http://mitkin.github.io/'
 # **************************************************************
 
 # Add your Disqus shortname to enable comments powered by Disqus
-disqus_shortname = mitkin
+disqus_shortname = 'mitkin'
 
 # Change your favicon (new favicon goes in _static directory)
 html_favicon = '_static/tinkerer.ico'

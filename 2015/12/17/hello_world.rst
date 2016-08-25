@@ -1,10 +1,6 @@
 Bayesian Methods for Hackers
 ============================
 
-.. author:: default
-.. categories:: none
-.. tags:: none
-.. comments::
 
 
    You are a skilled programmer, but bugs still slip into your code. After a particularly difficult implementation of an algorithm, you decide to test your code on a trivial example. It passes. You test the code on a harder problem. It passes once again. And it passes the next, even more difficult, test too! You are starting to believe that there may be no bugs in this code...
@@ -15,3 +11,7 @@ If you are into Bayesian statistics and applying those principled to the code yo
 .. _book: http://nbviewer.jupyter.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Chapter1_Introduction/Chapter1.ipynb
 .. _PyMC: https://pymc-devs.github.io/pymc
 
+.. author:: default
+.. categories:: Books
+.. tags:: software, development, books
+.. comments::
