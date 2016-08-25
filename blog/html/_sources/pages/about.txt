@@ -4,13 +4,16 @@ About
 Personal blog run by Mikhail "Misha" Itkin - pythonista, geoscientific programmer and cyclist.
 I leave in Tromsoe, Northern Norway and work for the National Weather Service, MET_. Studied Meteorology and Remote Sensing.
 
-* Github_ profile.
+* My Github_ profile.
 
 Projects I contribute to:
-* PyTROLL_, Meteorological satellite processing software suite
-* 
+#########################
 
-Projects directly related to my work:
+* PyTROLL_, Meteorological satellite processing software suite
+
+Recent projects directly related to my work:
+#####################################
+
 * Satistjenesten_, satellite processing package I use at the Norwegian Ice Service
 * Avhrr-sic-analysis_, Melt pond related uncertainty estimation in the passive microwave satellite records of sea ice concentration
 
