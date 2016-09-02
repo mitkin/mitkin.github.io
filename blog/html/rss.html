@@ -30,18 +30,18 @@ data = file.variables['data'][np.flatnonzero(time_array == '2007)]
 <li>Convert the array to the list of datetime objects</li>
 <li>Finally apply your condition</li>
 </ul>
-<dl class="docutils">
-<dt>::</dt>
-<dd><p class="first"># apply offset to convert the timestamp to ‘seconds since 1st of January, 1970’
-epoch_offset = 252460800
-time_array_with_offset = time_array + epoch_offset</p>
-<p># convert the array to the list of datetime objects
-convert_to_datetime = lambda t: datetime.datetime.fromtimestamp(t)
-datetime_list = map(convert_to_datetime, time_array)</p>
-<p class="last"># let’s go a bit further an create a list with years only, omit other time information
-years_list = map(lambda t: t.year, datetime_list)</p>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># apply offset to convert the timestamp to 'seconds since 1st of January, 1970'</span>
+<span class="n">epoch_offset</span> <span class="o">=</span> <span class="mi">252460800</span>
+<span class="n">time_array_with_offset</span> <span class="o">=</span> <span class="n">time_array</span> <span class="o">+</span> <span class="n">epoch_offset</span>
+
+<span class="c"># convert the array to the list of datetime objects</span>
+<span class="n">convert_to_datetime</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">datetime_list</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">convert_to_datetime</span><span class="p">,</span> <span class="n">time_array</span><span class="p">)</span>
+
+<span class="c"># let's go a bit further an create a list with years only, omit other time information</span>
+<span class="n">years_list</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">datetime_list</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>At this point we can finally apply selection by years:</p>
 <div class="highlight-python"><div class="highlight"><pre>data = file.variables['data'][np.flatnonzero(years_list == '2007')
 </pre></div>
