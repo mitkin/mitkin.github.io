@@ -1,5 +1,7 @@
 TINKER = ~/.local/bin/tinker
 
+post:
+	$(TINKER) -p $(POST)
 
 build:
 	$(TINKER) -b

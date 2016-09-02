@@ -65,6 +65,63 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>September 02, 2016</span>
+        </div>
+        <div class="section">
+            <h1><a href="2016/09/02/conditional_selection_of_netcdf_indices.html">Conditional selection of NetCDF indices (based on time)</a></h1>
+<p>One little thing that I use fairly often but fail to remember is how to make a conditional selection of the steps/indices when retrieving data from a NetCDF file.</p>
+<p>A typical reason for selective pulling of the data is to avoid filling memory with the entire dataset when in fact I need only tiny bit of it.</p>
+<p>Here are the steps I am doing it at the moment:</p>
+<ul class="simple">
+<li>Retrieve time information from the array (the time vector is normally much smaller than 3D data I am working with).</li>
+<li>Perform selection of the timestamps based on some condition</li>
+<li>Use <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.flatnonzero.html">numpy.flatnonzero</a> to return an array mask which is then passed further to the file handler.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>time_array = file.variables['time'][:]
+data = file.variables['data'][np.flatnonzero(time_array == '2007)]
+</pre></div>
+</div>
+<p>However this would be too easy. The time information often comes in the format similar to the Unix epoch format, with some offset. Typical format would be ‘seconds since January 1st, 1980’. Few additional steps are necessary to make sure we can apply selection to the data array and maintain the code readable. In my case those are:</p>
+<ul class="simple">
+<li>Apply offset to the time array to convert it to the standard Unix epoch timestamps</li>
+<li>Convert the array to the list of datetime objects</li>
+<li>Finally apply your condition</li>
+</ul>
+<dl class="docutils">
+<dt>::</dt>
+<dd><p class="first"># apply offset to convert the timestamp to ‘seconds since 1st of January, 1970’
+epoch_offset = 252460800
+time_array_with_offset = time_array + epoch_offset</p>
+<p># convert the array to the list of datetime objects
+convert_to_datetime = lambda t: datetime.datetime.fromtimestamp(t)
+datetime_list = map(convert_to_datetime, time_array)</p>
+<p class="last"># let’s go a bit further an create a list with years only, omit other time information
+years_list = map(lambda t: t.year, datetime_list)</p>
+</dd>
+</dl>
+<p>At this point we can finally apply selection by years:</p>
+<div class="highlight-python"><div class="highlight"><pre>data = file.variables['data'][np.flatnonzero(years_list == '2007')
+</pre></div>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Mikhail Itkin</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/programming.html">Programming</a>, <a href="categories/jots.html">Jots</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/netcdf.html">netcdf</a>, <a href="tags/python.html">python</a>, <a href="tags/numpy.html">numpy</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://mitkin.github.io/2016/09/02/conditional_selection_of_netcdf_indices.html#disqus_thread" data-disqus-identifier="2016/09/02/conditional_selection_of_netcdf_indices">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>August 30, 2016</span>
         </div>
         <div class="section">
@@ -126,6 +183,8 @@ If you think this way, then congratulations, you already are thinking Bayesian! 
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2016/09/02/conditional_selection_of_netcdf_indices.html">Conditional selection of NetCDF indices (based on time)</a>
+        </li><li>
             <a href="2016/08/30/book_first_steps_towards_ci.html">Book: First steps towards CI</a>
         </li><li>
             <a href="2015/12/17/hello_world.html">Bayesian Methods for Hackers</a>
