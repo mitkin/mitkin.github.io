@@ -7,4 +7,4 @@ build:
 	$(TINKER) -b
 
 commit:
-	git commit -a
+	git add blog * && git commit -a
