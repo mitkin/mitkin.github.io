@@ -44,7 +44,7 @@ Schematic basemap map with polygons, etc
 
 And the output:
 
-.. image: map.png
+.. image:: map.png
 
 
 .. author:: default
