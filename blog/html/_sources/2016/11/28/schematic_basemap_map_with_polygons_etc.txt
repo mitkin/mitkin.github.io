@@ -49,15 +49,14 @@ Since I am a heavy `pyresample` user I will stick to it here.
 
 Contents of my `areas.cfg`:
 
-    .. code-block::
-        REGION: nsidc_stere_north_10k {
-        NAME: NSIDC Polar Stereographic North
-        PCS_ID: nsidc_stere_north_10k
-        PCS_DEF: proj=stere, lat_0=90, lat_ts=70, lon_0=-45, k=1, x_0=0, y_0=0, a=6378273, b=6356889.449, units=m
-        XSIZE: 760
-        YSIZE: 1120
-        AREA_EXTENT: (-3850000.0, -5350000.0, 3750000.0, 5850000.0)
-    };
+.. code-block::
+    REGION: nsidc_stere_north_10k {
+    NAME: NSIDC Polar Stereographic North
+    PCS_ID: nsidc_stere_north_10k
+    PCS_DEF: proj=stere, lat_0=90, lat_ts=70, lon_0=-45, k=1, x_0=0, y_0=0, a=6378273, b=6356889.449, units=m
+    XSIZE: 760
+    YSIZE: 1120
+    AREA_EXTENT: (-3850000.0, -5350000.0, 3750000.0, 5850000.0)};
 
 
 And the output:
