@@ -1,7 +1,8 @@
 Schematic basemap map with polygons, etc
 ========================================
 
-::
+.. code-block:: python
+
     from pyresample import plot, utils
 
     # Assume we have an area definition file in the same directory

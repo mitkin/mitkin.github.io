@@ -69,44 +69,45 @@
         </div>
     <div class="section" id="schematic-basemap-map-with-polygons-etc">
 <h1>Schematic basemap map with polygons, etc</h1>
-<dl class="docutils">
-<dt>::</dt>
-<dd><p class="first">from pyresample import plot, utils</p>
-<p># Assume we have an area definition file in the same directory
-# It is possible to define basemap object from scratch though</p>
-<p>area_def = utils.load_area(&#8216;./areas.cfg&#8217;, &#8216;nsidc_stere_north_10k&#8217;)
-bmap = plot.area_def2basemap(area_def, resolution=&#8217;l&#8217;)
-bmap.drawcoastlines(color=&#8217;#c1c1c1&#8217;)
-bmap.fillcontinents()
-bmap.drawmeridians(np.arange(-180, 180, 30))
-bmap.drawparallels(np.arange(-90, 90, 10))</p>
-<p>bmap.drawmapscale(-15, 40, 0, 70,1000, barstyle=&#8217;fancy&#8217;, yoffset=100000)</p>
-<dl class="docutils">
-<dt>def draw_screen_poly( x, y, m):</dt>
-<dd>x, y = m( lons, lats )
-xy = zip(x,y)
-poly = Polygon( xy, facecolor=&#8217;red&#8217;, alpha=0.2 )
-plt.gca().add_patch(poly)</dd>
-</dl>
-<p># Define window size. For now let it be centered around zero coordinates
-height=100
-width=100</p>
-<p>row_LR = np.int(area_def.shape[0]/2.+height/2.)
-row_UL = np.int(area_def.shape[0]/2.-height/2.)
-col_LR = np.int(area_def.shape[1]/2.+width/2.)
-col_UL = np.int(area_def.shape[1]/2.-width/2.)</p>
-<dl class="docutils">
-<dt>ll_x, ll_y, ur_x, ur_y = area_def.get_area_extent_for_subset(row_LR,</dt>
-<dd>col_LR,
-row_UL,
-col_UL)</dd>
-</dl>
-<p class="last">x_0, y_0 = bmap(0,90)
-y = np.array([ ll_y, ur_y, ur_y, ll_y ]) + y_0
-x = np.array([ ll_x, ll_x, ur_x, ur_x ])  + x_0
-draw_screen_poly( x,y, bmap)</p>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyresample</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">utils</span>
+
+<span class="c"># Assume we have an area definition file in the same directory</span>
+<span class="c"># It is possible to define basemap object from scratch though</span>
+
+<span class="n">area_def</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_area</span><span class="p">(</span><span class="s">&#39;./areas.cfg&#39;</span><span class="p">,</span> <span class="s">&#39;nsidc_stere_north_10k&#39;</span><span class="p">)</span>
+<span class="n">bmap</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">area_def2basemap</span><span class="p">(</span><span class="n">area_def</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawcoastlines</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;#c1c1c1&#39;</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">fillcontinents</span><span class="p">()</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawmapscale</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span> <span class="n">barstyle</span><span class="o">=</span><span class="s">&#39;fancy&#39;</span><span class="p">,</span> <span class="n">yoffset</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">draw_screen_poly</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span> <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span> <span class="n">xy</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span> <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+
+<span class="c"># Define window size. For now let it be centered around zero coordinates</span>
+<span class="n">height</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">width</span><span class="o">=</span><span class="mi">100</span>
+
+<span class="n">row_LR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">height</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">row_UL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">height</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">col_LR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">col_UL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+
+<span class="n">ll_x</span><span class="p">,</span> <span class="n">ll_y</span><span class="p">,</span> <span class="n">ur_x</span><span class="p">,</span> <span class="n">ur_y</span> <span class="o">=</span> <span class="n">area_def</span><span class="o">.</span><span class="n">get_area_extent_for_subset</span><span class="p">(</span><span class="n">row_LR</span><span class="p">,</span>
+                            <span class="n">col_LR</span><span class="p">,</span>
+                            <span class="n">row_UL</span><span class="p">,</span>
+                            <span class="n">col_UL</span><span class="p">)</span>
+<span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span> <span class="o">=</span> <span class="n">bmap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">ll_y</span><span class="p">,</span> <span class="n">ur_y</span><span class="p">,</span> <span class="n">ur_y</span><span class="p">,</span> <span class="n">ll_y</span> <span class="p">])</span> <span class="o">+</span> <span class="n">y_0</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">ll_x</span><span class="p">,</span> <span class="n">ll_x</span><span class="p">,</span> <span class="n">ur_x</span><span class="p">,</span> <span class="n">ur_x</span> <span class="p">])</span>  <span class="o">+</span> <span class="n">x_0</span>
+<span class="n">draw_screen_poly</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">bmap</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>And the output:</p>
 </div>
 
