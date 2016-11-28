@@ -49,6 +49,8 @@ Since I am a heavy `pyresample` user I will stick to it here.
 
 Contents of my `areas.cfg`:
 
+.. code-block:: python
+
     REGION: nsidc_stere_north_10k {
     NAME: NSIDC Polar Stereographic North
     PCS_ID: nsidc_stere_north_10k
