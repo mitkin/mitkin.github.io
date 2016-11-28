@@ -69,6 +69,10 @@
         </div>
     <div class="section" id="schematic-basemap-map-with-polygons-etc">
 <h1>Schematic basemap map with polygons, etc</h1>
+<p>So you want to plot a schematic (or not) map, with a subregion highlighted.
+And the only coordinates you have are the array corner indices relative to the original
+data array. How do you get the true coordinates and use them for drawing a polygon?</p>
+<p>Since I am a heavy <cite>pyresample</cite> user I will stick to it here.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyresample</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">utils</span>
 
 <span class="c"># Assume we have an area definition file in the same directory</span>
@@ -84,20 +88,19 @@
 <span class="n">bmap</span><span class="o">.</span><span class="n">drawmapscale</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span> <span class="n">barstyle</span><span class="o">=</span><span class="s">&#39;fancy&#39;</span><span class="p">,</span> <span class="n">yoffset</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">draw_screen_poly</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span> <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="p">)</span>
     <span class="n">xy</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
     <span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span> <span class="n">xy</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span> <span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 
 <span class="c"># Define window size. For now let it be centered around zero coordinates</span>
-<span class="n">height</span><span class="o">=</span><span class="mi">100</span>
-<span class="n">width</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span>
 
 <span class="n">row_LR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">height</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
 <span class="n">row_UL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">height</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
 <span class="n">col_LR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
 <span class="n">col_UL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">area_def</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
 
+<span class="c"># Compute corner coordinates in map projection space</span>
 <span class="n">ll_x</span><span class="p">,</span> <span class="n">ll_y</span><span class="p">,</span> <span class="n">ur_x</span><span class="p">,</span> <span class="n">ur_y</span> <span class="o">=</span> <span class="n">area_def</span><span class="o">.</span><span class="n">get_area_extent_for_subset</span><span class="p">(</span><span class="n">row_LR</span><span class="p">,</span>
                             <span class="n">col_LR</span><span class="p">,</span>
                             <span class="n">row_UL</span><span class="p">,</span>
@@ -108,6 +111,9 @@
 <span class="n">draw_screen_poly</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">bmap</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Contents of my <cite>areas.cfg</cite>:</p>
+<blockquote>
+<div>};</div></blockquote>
 <p>And the output:</p>
 <img alt="../../../_images/map.png" src="../../../_images/map.png" />
 </div>
@@ -119,12 +125,12 @@
         <div class="categories">
             <span>
                 Filed under:
-                <a href="../../../categories/python.html">Python</a>, <a href="../../../categories/coding.html">coding</a>, <a href="../../../categories/basemap.html">Basemap</a>, <a href="../../../categories/maps.html">maps</a></span>
+                <a href="../../../categories/maps.html">maps</a>, <a href="../../../categories/coding.html">coding</a>, <a href="../../../categories/python.html">python</a></span>
         </div>
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/maps.html">maps</a>, <a href="../../../tags/python.html">python</a>, <a href="../../../tags/basemap.html">basemap</a></span>
+                <a href="../../../tags/maps.html">maps</a>, <a href="../../../tags/python.html">python</a>, <a href="../../../tags/basemap.html">basemap</a>, <a href="../../../tags/pyresample.html">pyresample</a></span>
         </div>
         </div><ul class="related clearfix">
             <li class="left"></li>
