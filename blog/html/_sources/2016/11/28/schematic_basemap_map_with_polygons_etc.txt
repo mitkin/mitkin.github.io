@@ -46,6 +46,22 @@ Since I am a heavy `pyresample` user I will stick to it here.
     x = np.array([ ll_x, ll_x, ur_x, ur_x ])  + x_0
     draw_screen_poly( x,y, bmap)
 
+    for xpt, ypt in zip(x, y):
+        labelx, labely = bmap(xpt, ypt, inverse=True)
+        if ypt-y_0>0: 
+            ypos = ypt+200000
+        if ypt-y_0<0:
+            ypos = ypt-200000
+        if labelx > 0:
+            lon_label = 'E'
+        elif labelx <0:
+            lon_label = 'W'
+            labelx *= -1
+        label = '%.1fN;%.1f%s' % (labely, labelx, lon_label)
+        plt.text(xpt-450000, ypos, '%s' % label, size='x-small')
+        plt.scatter(xpt,ypt, alpha=0.2,c='r')
+
+
 
 Contents of my `areas.cfg`:
 
