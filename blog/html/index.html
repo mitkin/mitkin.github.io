@@ -72,7 +72,7 @@
 <p>So you want to plot a schematic (or not) map, with a subregion highlighted.
 And the only coordinates you have are the array corner indices relative to the original
 data array. How do you get the true coordinates and use them for drawing a polygon?</p>
-<p>Since I am a heavy <cite>pyresample</cite> user I will stick to it here.</p>
+<p>Since I am a heavy pyresample user I will stick to it here. Pyresample provides a convenient interface to basemap objects. Chances are that if you use pyresample, you also have your area definition for your geographic extent.  Under the hood pyresample initializes basemap drawable map object with parameters taken from the area definition. All you need to do is to plot the actual data/information.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pyresample</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">utils</span>
 
 <span class="c"># Assume we have an area definition file in the same directory</span>
@@ -126,6 +126,7 @@ data array. How do you get the true coordinates and use them for drawing a polyg
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xpt</span><span class="p">,</span><span class="n">ypt</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s">'r'</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Now the code snippet above contains few extra goodies from my code gist, I am leaving there for my personal reference.</p>
 <p>Contents of my <cite>areas.cfg</cite>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">REGION</span><span class="p">:</span> <span class="n">nsidc_stere_north_10k</span> <span class="p">{</span>
 <span class="n">NAME</span><span class="p">:</span> <span class="n">NSIDC</span> <span class="n">Polar</span> <span class="n">Stereographic</span> <span class="n">North</span>

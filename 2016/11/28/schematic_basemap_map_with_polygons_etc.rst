@@ -5,7 +5,8 @@ So you want to plot a schematic (or not) map, with a subregion highlighted.
 And the only coordinates you have are the array corner indices relative to the original
 data array. How do you get the true coordinates and use them for drawing a polygon?
 
-Since I am a heavy `pyresample` user I will stick to it here.
+Since I am a heavy pyresample user I will stick to it here. Pyresample provides a convenient interface to basemap objects. Chances are that if you use pyresample, you also have your area definition for your geographic extent.  Under the hood pyresample initializes basemap drawable map object with parameters taken from the area definition. All you need to do is to plot the actual data/information.
+
 
 .. code-block:: python
 
@@ -61,6 +62,7 @@ Since I am a heavy `pyresample` user I will stick to it here.
         plt.text(xpt-450000, ypos, '%s' % label, size='x-small')
         plt.scatter(xpt,ypt, alpha=0.2,c='r')
 
+Now the code snippet above contains few extra goodies from my code gist, I am leaving there for my personal reference.
 
 
 Contents of my `areas.cfg`:
